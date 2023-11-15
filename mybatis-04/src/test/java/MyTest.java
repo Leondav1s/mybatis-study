@@ -10,8 +10,11 @@ public class MyTest {
         SqlSession sqlSession= MybatisUtils.getSqlSession();
         //底层主要应用反射
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        User userByID= mapper.getUserByID(1);
-        System.out.println(userByID);
+        mapper.deleteUser(8);
+        // mapper.updateUser(new User(8, "SDFES","33847"));
+        // mapper.addUser(new User(8,"skudo","783749"));
+        // User userByID= mapper.getUserByID(1);
+        // System.out.println(userByID);
         sqlSession.close();
     }
 }
