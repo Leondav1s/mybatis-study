@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.davis.dao.UserMapper">
+    <select id="getUserList" resultType="user" >
+        select * from mybatis.user
+    </select>
+    
+    <resultMap id="UserMap" type="user">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pwd" property="password"/>
+    </resultMap>
+    
+    <select id="getUserByID"  parameterType="int" resultMap="UserMap">
+        select id, name, pwd from mybatis.user where id = #{id}
+    </select>
+<!--    select * from mybatis.user where id = #{id}-->
+<!--    select id, name, pwd as password from mybatis.user where id = #{id}-->
+
+<!--对象中的属性可以直接取出来-->
+    <insert id="addUser" parameterType="com.davis.pojo.User">
+        insert into mybatis.user(id, name, pwd) values(#{id}, #{name}, #{pwd});
+    </insert>
+
+    <update id="updateUser" parameterType="com.davis.pojo.User">
+        update mybatis.user set name=#{name}, pwd=#{pwd} where id=#{id};
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from mybatis.user where id=#{id};
+    </delete>
+
+    <select id="getUserLimit" parameterType="map" resultMap="UserMap">
+        select * from mybatis.user limit #{startIndex},#{pageSize};
+    </select>
+
+    <select id="getUserRowBounds" resultMap="UserMap">
+        select * from mybatis.user;
+    </select>
+
+
+</mapper>
